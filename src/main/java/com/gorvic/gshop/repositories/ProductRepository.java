@@ -24,7 +24,7 @@ public class ProductRepository {
     }
 
     public List<Product> getAllProducts() {
-        return daoProducts.findAll;
+        return daoProducts.findAll();
     }
 
     public void addNewProduct(Product product) {
