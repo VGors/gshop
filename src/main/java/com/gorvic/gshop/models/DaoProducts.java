@@ -1,56 +1,64 @@
 package com.gorvic.gshop.models;
 
 import com.gorvic.gshop.GshopApplication;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SharedSessionContract;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class DaoProducts {
-    private Session session;
-
     public Product findById(Long id) {
-        session = GshopApplication.sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        Product targetProduct = session.get(Product.class, id);
-        session.beginTransaction().commit();
-        return targetProduct;
+
+        try (Session session = GshopApplication.sessionFactory.getCurrentSession()){
+            session.beginTransaction();
+            Product targetProduct = session.get(Product.class, id);
+//            session.beginTransaction().commit();
+            return targetProduct;
+        }
     }
 
     public List<Product> findAll() {
-        session = GshopApplication.sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        List<Product> allProducts = session.createQuery("from Product").getResultList();
-        session.beginTransaction().commit();
-        return allProducts;
+        try (Session session = GshopApplication.sessionFactory.getCurrentSession()){
+            session.beginTransaction();
+            List<Product> allProducts = session.createQuery("select s from Product s where s.id >= 0", Product.class).getResultList();
+            return allProducts;
+//            session.beginTransaction().commit();
+        }
     }
 
     public void deleteById(Long id) {
-        session = GshopApplication.sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        Product deletingProduct = session.get(Product.class, id);
-        session.delete(deletingProduct);
-        session.beginTransaction().commit();
+        try (Session session = GshopApplication.sessionFactory.getCurrentSession()){
+            session.beginTransaction();
+            Product deletingProduct = session.get(Product.class, id);
+            session.delete(deletingProduct);
+            session.beginTransaction().commit();
+        }
     }
 
     //TEST
     public Product saveOrUpdate(Product product) {
-        session = GshopApplication.sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        Product updatedProduct = session.get(Product.class, product.getId());
-        updatedProduct.setPrice(product.getPrice());
-        updatedProduct.setTitle(product.getTitle());
-        session.beginTransaction().commit();
-        return updatedProduct;
+
+        try (Session session = GshopApplication.sessionFactory.getCurrentSession()){
+            session.beginTransaction();
+            Product updatedProduct = session.get(Product.class, product.getId());
+            updatedProduct.setPrice(product.getPrice());
+            updatedProduct.setTitle(product.getTitle());
+            return updatedProduct;
+//            session.beginTransaction().commit();
+        }
     }
 
     public void createProduct(String title, float price) {
-        session = GshopApplication.sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        Product newProduct = new Product(null, title, price);
-        session.save(newProduct);
-        session.beginTransaction().commit();
+        try (Session session = GshopApplication.sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+//            Product newProduct = new Product(57L, title, price);
+            Product newProduct = new Product(57L, "title", 23.33f);
+            session.save(newProduct);
+            session.beginTransaction().commit();
+        }
     }
 
 }

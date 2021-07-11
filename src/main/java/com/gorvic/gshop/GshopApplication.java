@@ -11,13 +11,9 @@ public class GshopApplication {
     public static SessionFactory sessionFactory;
 
     public static void main(String[] args) {
-        try {
             sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
             PrepareDB prepareDB = new PrepareDB();
             prepareDB.createDB();
             SpringApplication.run(GshopApplication.class, args);
-        } finally {
-            sessionFactory.close();
-        }
     }
 }

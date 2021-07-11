@@ -26,6 +26,6 @@ public class ProductService {
 
     public void addNewProduct(String title, float price) {
         //Checks block
-        productRepository.addNewProduct(new Product(null, title, price));
+        productRepository.addNewProduct(new Product(title, price));
     }
 }

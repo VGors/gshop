@@ -43,6 +43,11 @@ public class Product {
     public Product() {
     }
 
+    public Product(String title, float price) {
+        this.title = title;
+        this.price = price;
+    }
+
     public Product(Long id, String title, float price) {
         this.id = id;
         this.title = title;
