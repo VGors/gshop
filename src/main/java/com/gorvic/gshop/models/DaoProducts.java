@@ -1,9 +1,7 @@
 package com.gorvic.gshop.models;
 
 import com.gorvic.gshop.GshopApplication;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SharedSessionContract;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -54,8 +52,7 @@ public class DaoProducts {
     public void createProduct(String title, float price) {
         try (Session session = GshopApplication.sessionFactory.getCurrentSession()) {
             session.beginTransaction();
-//            Product newProduct = new Product(57L, title, price);
-            Product newProduct = new Product(57L, "title", 23.33f);
+            Product newProduct = new Product(45L, title, price);
             session.save(newProduct);
             session.beginTransaction().commit();
         }
