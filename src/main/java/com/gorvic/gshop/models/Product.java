@@ -39,18 +39,4 @@ public class Product {
     public void setPrice(float price) {
         this.price = price;
     }
-
-    public Product() {
-    }
-
-    public Product(String title, float price) {
-        this.title = title;
-        this.price = price;
-    }
-
-    public Product(Long id, String title, float price) {
-        this.id = id;
-        this.title = title;
-        this.price = price;
-    }
 }

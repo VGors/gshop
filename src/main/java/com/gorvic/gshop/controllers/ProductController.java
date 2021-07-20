@@ -20,7 +20,7 @@ public class ProductController {
 
     @GetMapping
     public String showMainPage(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("products", productService.findAll());
         return "index";
     }
 
@@ -37,7 +37,7 @@ public class ProductController {
 
     @GetMapping("/prodInfo{id}")
     public String showProductInfo(Model model, @PathVariable Long id){
-        model.addAttribute("product", productService.getProductById(id));
+        model.addAttribute("product", productService.findById(id));
         return "productInfo";
     }
 

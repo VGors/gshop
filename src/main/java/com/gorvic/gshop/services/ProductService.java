@@ -16,16 +16,19 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Product getProductById(Long id) {
-        return productRepository.getProductById(id);
+    public Product findById(Long id) {
+        return productRepository.findById(id).get();
     }
 
-    public List<Product> getAllProducts(){
-        return productRepository.getAllProducts();
+    public List<Product> findAll(){
+        return productRepository.findAll();
     }
 
     public void addNewProduct(String title, float price) {
+        Product product = new Product();
+        product.setTitle(title);
+        product.setPrice(price);
         //Checks block
-        productRepository.addNewProduct(new Product(title, price));
+        productRepository.save(product);
     }
 }
