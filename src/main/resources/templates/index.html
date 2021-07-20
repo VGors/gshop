@@ -17,13 +17,15 @@
             <td>ID</td>
             <td>Title</td>
             <td>Price</td>
+            <td>Info</td>
         </tr>
         </thead>
         <tbody>
         <tr th:each="p: ${products}">
-            <td th:text="${p.id}"></td>
+            <td name="id" th:text="${p.id}"></td>
             <td th:text="${p.title}"></td>
             <td th:text="${p.price}"></td>
+            <td><a  th:href="@{/prodInfo}">info</a></td>
         </tr>
         </tbody>
     </table>

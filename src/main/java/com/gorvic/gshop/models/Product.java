@@ -1,8 +1,19 @@
 package com.gorvic.gshop.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "products")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "price")
     private float price;
 
     public Long getId() {
@@ -30,6 +41,11 @@ public class Product {
     }
 
     public Product() {
+    }
+
+    public Product(String title, float price) {
+        this.title = title;
+        this.price = price;
     }
 
     public Product(Long id, String title, float price) {

@@ -1,46 +1,41 @@
 package com.gorvic.gshop.repositories;
 
 import com.gorvic.gshop.exceptions.UniversalException;
+import com.gorvic.gshop.models.DaoProducts;
 import com.gorvic.gshop.models.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @Repository
 public class ProductRepository {
-    private List<Product> products;
+
+    private DaoProducts daoProducts;
+
+    @Autowired
+    public ProductRepository(DaoProducts daoProducts) {
+        this.daoProducts = daoProducts;
+    }
 
     public Product getProductById(Long id) {
-        for (Product p : products) {
-            if (p.getId().equals(id)) {
-                return p;
-            }
-        }
-        throw new UniversalException();
+        return daoProducts.findById(id);
     }
 
     public List<Product> getAllProducts() {
-        return Collections.unmodifiableList(products);
+        return daoProducts.findAll();
     }
 
-    public void addNewProduct(Product product){
-        Long id = products.stream().mapToLong(Product::getId).max().getAsLong() + 1;
-        product.setId(id);
-        products.add(product);
+    public void addNewProduct(Product product) {
+        daoProducts.createProduct(product.getTitle(), product.getPrice());
     }
 
-    @PostConstruct
-    private void init() {
-        products = new ArrayList<>(Arrays.asList(
-                new Product(0L, "Celery", 50.32f),
-                new Product(1L, "Parsley", 30.11f),
-                new Product(2L, "Fennel", 10),
-                new Product(3L, "Coriander", 46.7f)
-        ));
+    public void deleteProduct(Long id){
+        daoProducts.deleteById(id);
     }
 
+    public Product changeProduct(Product product){
+        return daoProducts.saveOrUpdate(product);
+    }
 }
