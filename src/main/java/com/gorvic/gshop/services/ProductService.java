@@ -2,19 +2,15 @@ package com.gorvic.gshop.services;
 
 import com.gorvic.gshop.models.Product;
 import com.gorvic.gshop.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
-    private ProductRepository productRepository;
-
-    @Autowired
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private final ProductRepository productRepository;
 
     public Product findById(Long id) {
         return productRepository.findById(id).get();
@@ -22,6 +18,10 @@ public class ProductService {
 
     public List<Product> findAll(){
         return productRepository.findAll();
+    }
+
+    public List<Product> findByMinPrice(float price){
+        return productRepository.findAllByPriceGreaterThanEqual(price);
     }
 
     public void addNewProduct(String title, float price) {
