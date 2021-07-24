@@ -25,7 +25,7 @@ public class CategoryController {
 
     @GetMapping("/categories/{id}")
     @ResponseBody
-    public Category showProductInfo(@PathVariable Long id){
+    public Category showProductInfo(@PathVariable Long id) {
         return categoryService.findById(id);
     }
 }

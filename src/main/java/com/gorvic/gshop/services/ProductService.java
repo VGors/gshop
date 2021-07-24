@@ -24,15 +24,15 @@ public class ProductService {
         return productRepository.findAllByPriceGreaterThan(price);
     }
 
-    public List<Product> findLessMaxPrice(float price){
+    public List<Product> findLessMaxPrice(float price) {
         return productRepository.findAllByPriceLessThan(price);
     }
 
-    public List<Product> findBetweenMinMaxPrice(float min_price, float max_price){
+    public List<Product> findBetweenMinMaxPrice(float min_price, float max_price) {
         return productRepository.findAllByPriceGreaterThanEqualAndPriceLessThanEqual(min_price, max_price);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         productRepository.deleteById(id);
     }
 
