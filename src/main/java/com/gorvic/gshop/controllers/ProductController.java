@@ -3,8 +3,6 @@ package com.gorvic.gshop.controllers;
 import com.gorvic.gshop.models.Product;
 import com.gorvic.gshop.services.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -2,7 +2,6 @@ package com.gorvic.gshop.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -21,9 +20,4 @@ public class Product {
 
     @Column(name = "price")
     private float price;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    @JsonIgnore
-    private Category category;
 }
