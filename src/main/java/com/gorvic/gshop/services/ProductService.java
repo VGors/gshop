@@ -3,6 +3,8 @@ package com.gorvic.gshop.services;
 import com.gorvic.gshop.models.Product;
 import com.gorvic.gshop.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,5 +20,13 @@ public class ProductService {
 
     public List<Product> findAll() {
         return productRepository.findAll();
+    }
+
+    public void deleteById(Long id) {
+        productRepository.deleteById(id);
+    }
+
+    public Page<Product> findPage(int pageIndex, int pageSize) {
+        return productRepository.findAll(PageRequest.of(pageIndex, pageSize));
     }
 }

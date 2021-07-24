@@ -9,6 +9,19 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             $scope.products = response.data;
         });
     };
+
+    $scope.loadPage = function (pageIndex = 1) {
+        $http({
+            url: "http://localhost:8189/gshop/product_pages",
+            method: 'GET',
+            params: {
+                'p': pageIndex
+            }
+        }).then(function (response) {
+            console.log(response);
+        });
+    };
+
     $scope.counterValue = 1;
 
     $scope.clickIncrementButton = function () {
