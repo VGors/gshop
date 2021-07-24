@@ -2,15 +2,15 @@ package com.gorvic.gshop.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "products")
+@Table(name = "categories")
 @Data
 @NoArgsConstructor
-public class Product {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -19,11 +19,6 @@ public class Product {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "price")
-    private float price;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    @JsonIgnore
-    private Category category;
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 }
