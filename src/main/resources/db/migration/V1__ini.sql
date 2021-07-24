@@ -1,6 +1,10 @@
-create table products
+create table categories
 (
     id    bigserial primary key,
     title varchar(255),
-    price float
 );
+insert into categories (title)
+values ('food'),
+       ('furniture'),
+       ('chandlery');
+
