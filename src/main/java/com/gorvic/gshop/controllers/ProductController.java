@@ -9,15 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public String showMainPage(Model model) {
-        model.addAttribute("products", productService.findAll());
-        return "index";
+    public List<Product> showMainPage() {
+        return productService.findAll();
     }
 
     @GetMapping("/products/add")
