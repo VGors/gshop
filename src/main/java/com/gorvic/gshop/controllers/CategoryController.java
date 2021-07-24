@@ -1,10 +1,9 @@
 package com.gorvic.gshop.controllers;
 
+import com.gorvic.gshop.models.Category;
 import com.gorvic.gshop.services.CategoryService;
-import com.gorvic.gshop.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -25,8 +24,8 @@ public class CategoryController {
     }
 
     @GetMapping("/categories/{id}")
-    public String showProductInfo(Model model, @PathVariable Long id){
-        model.addAttribute("category", categoryService.findById(id));
-        return "categoryInfo";
+    @ResponseBody
+    public Category showProductInfo(@PathVariable Long id){
+        return categoryService.findById(id);
     }
 }
