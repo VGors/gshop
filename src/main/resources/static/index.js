@@ -19,6 +19,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             }
         }).then(function (response) {
             console.log(response);
+            $scope.products = response.data.content;
         });
     };
 
@@ -35,10 +36,12 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         $http({
             url: "http://localhost:8189/gshop/delete_product/" + productID,
             method: 'GET'
-        }).then(function (response){
-            $scope.loadProducts();
+        }).then(function (response) {
+            // $scope.loadProducts();
+            $scope.loadPage();
         });
     }
 
-    $scope.loadProducts();
+    // $scope.loadProducts();
+    $scope.loadPage();
 });
