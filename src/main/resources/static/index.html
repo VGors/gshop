@@ -25,17 +25,18 @@
             <td>{{p.id}}</td>
             <td>{{p.title}}</td>
             <td>{{p.price}}</td>
-            <td><button class="btn btn-info" ng-click = "showProductInfo(p.id)">Info</button></td>
+            <td><button class="btn btn-info" ng-click = "deleteProduct(p.id)">Delete</button></td>
         </tr>
         </tbody>
     </table>
     <p></p>
-    <h3>Counter: {{counterValue}}</h3>
-    <button class="btn btn-primary" ng-click = "clickIncrementButton()">Increment</button>
-    <p></p>
-    <h2>Pagination</h2>
-    <button class="btn btn-primary" ng-click = "loadPage(1)">Page 1</button>
-    <button class="btn btn-primary" ng-click = "loadPage(2)">Page 2</button>
+    <div align="center">
+        <button class="btn btn-primary btn-sm" ng-click = "loadPage(1)">1</button>
+        <button class="btn btn-primary btn-sm" ng-click = "loadPage(2)">2</button>
+        <button class="btn btn-primary btn-sm" ng-click = "loadPage(3)">...</button>
+        <button class="btn btn-primary btn-sm" ng-click = "loadPage(3)">5</button>
+    </div>
+
 </div>
 
 </body>
