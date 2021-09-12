@@ -31,8 +31,7 @@ public class ProductController {
         Product product = new Product();
         product.setTitle(newProductDto.getTitle());
         product.setPrice(newProductDto.getPrice());
-        Category category = categoryService.findByTitle(newProductDto.getCategoryTitle());
-        product.setCategory(category);
+        product.setCategory(categoryService.findByTitle(newProductDto.getCategoryTitle()));
         return new ProductDto(productService.save(product));
     }
 
