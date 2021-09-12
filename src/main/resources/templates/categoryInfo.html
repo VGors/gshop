@@ -10,13 +10,11 @@
 </head>
 <body>
 <div>
-    <h2>Add New Product</h2>
-    <form method="post" th:action="@{/products/add}">
-        <input type="text" name="title">
-        <input type="number" step="0.01" name="price">
-        <button type="submit" class="btn btn-primary" th:href="@{/}">Add</button>
-    </form>
+    <h2>Category Info:</h2>
+    <p></p>
+    <h3 th:text="${category.id}"></h3>
+    <h3 th:text="${category.title}"></h3>
+    <a class="btn btn-primary" th:href="@{/}">Back</a>
 </div>
-
 </body>
 </html>

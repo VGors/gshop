@@ -1,41 +1,17 @@
 package com.gorvic.gshop.repositories;
 
-import com.gorvic.gshop.exceptions.UniversalException;
-import com.gorvic.gshop.models.DaoProducts;
 import com.gorvic.gshop.models.Product;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
 import java.util.List;
 
+
 @Repository
-public class ProductRepository {
+public interface ProductRepository extends JpaRepository<Product, Long> {
+    List<Product> findAllByPriceGreaterThan(float price);
 
-    private DaoProducts daoProducts;
+    List<Product> findAllByPriceLessThan(float price);
 
-    @Autowired
-    public ProductRepository(DaoProducts daoProducts) {
-        this.daoProducts = daoProducts;
-    }
-
-    public Product getProductById(Long id) {
-        return daoProducts.findById(id);
-    }
-
-    public List<Product> getAllProducts() {
-        return daoProducts.findAll();
-    }
-
-    public void addNewProduct(Product product) {
-        daoProducts.createProduct(product.getTitle(), product.getPrice());
-    }
-
-    public void deleteProduct(Long id){
-        daoProducts.deleteById(id);
-    }
-
-    public Product changeProduct(Product product){
-        return daoProducts.saveOrUpdate(product);
-    }
+    List<Product> findAllByPriceGreaterThanEqualAndPriceLessThanEqual(float min_price, float max_price);
 }
