@@ -1,5 +1,6 @@
 package com.gorvic.gshop.controllers;
 
+import com.gorvic.gshop.dto.ProductDto;
 import com.gorvic.gshop.models.Product;
 import com.gorvic.gshop.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,8 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/{id}")
-    public Product findById(@PathVariable Long id) {
-        return productService.findById(id);
+    public ProductDto findById(@PathVariable Long id) {
+        return new ProductDto(productService.findById(id));
     }
 
     @GetMapping
@@ -23,9 +24,11 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product createProduct(@RequestBody Product newProduct) {
-        newProduct.setId(null);
-        return productService.save(newProduct);
+    public ProductDto createProduct(@RequestBody ProductDto newProductDto) {
+        Product product = new Product();
+        product.setTitle(newProductDto.getTitle());
+        product.setPrice(newProductDto.getPrice());
+        return new ProductDto(productService.save(product));
     }
 
     @DeleteMapping("/{id}")

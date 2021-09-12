@@ -2,6 +2,7 @@ package com.gorvic.gshop.services;
 
 import com.gorvic.gshop.models.Product;
 import com.gorvic.gshop.repositories.ProductRepository;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

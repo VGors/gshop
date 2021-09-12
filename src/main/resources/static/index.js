@@ -9,8 +9,9 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                 'p': pageIndex
             }
         }).then(function (response) {
+            $scope.productsPage = response.data;
+            $scope.navList = $scope.generatePagesIndex(1, $scope.productsPage.totalPages)
             console.log(response);
-            $scope.products = response.data.content;
         });
     };
 
@@ -30,6 +31,14 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         }).then(function (response) {
             $scope.loadPage();
         });
+    }
+
+    $scope.generatePagesIndex = function (startPage, endPage) {
+        let arr = [];
+        for (let i = startPage; i <endPage + 1; i++){
+            arr.push(i);
+        }
+        return arr;
     }
 
     $scope.loadPage();
