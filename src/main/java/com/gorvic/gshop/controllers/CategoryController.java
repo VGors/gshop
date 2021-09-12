@@ -1,5 +1,6 @@
 package com.gorvic.gshop.controllers;
 
+import com.gorvic.gshop.dto.CategoryDto;
 import com.gorvic.gshop.models.Category;
 import com.gorvic.gshop.services.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryController {
     private final CategoryService categoryService;
     @GetMapping("/{id}")
-    public Category findById(@PathVariable Long id){
-        return categoryService.findById(id);
+    public CategoryDto findById(@PathVariable Long id){
+        return new CategoryDto(categoryService.findById(id));
     }
 }
