@@ -26,7 +26,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     $scope.deleteProduct = function (productID) {
         $http({
             url: contextPath + "/api/v1/products/" + productID,
-            method: 'GET'
+            method: 'DELETE'
         }).then(function (response) {
             $scope.loadPage();
         });
