@@ -18,14 +18,19 @@ public class ProductController {
         return productService.findById(id);
     }
 
-    @GetMapping("/delete_product/{id}")
-    public void deleteById(@PathVariable Long id) {
-        productService.deleteById(id);
-    }
-
     @GetMapping("/products")
     public List<Product> findAll() {
         return productService.findAll();
+    }
+
+    @PostMapping("/products")
+    public Product createProduct(@RequestBody Product newProduct) {
+        return productService.save(newProduct);
+    }
+
+    @GetMapping("/delete_product/{id}")
+    public void deleteById(@PathVariable Long id) {
+        productService.deleteById(id);
     }
 
     @GetMapping("/product_pages")

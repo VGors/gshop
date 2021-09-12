@@ -29,4 +29,8 @@ public class ProductService {
     public Page<Product> findPage(int pageIndex, int pageSize) {
         return productRepository.findAll(PageRequest.of(pageIndex, pageSize));
     }
+
+    public Product save(Product newProduct) {
+        return productRepository.save(newProduct);
+    }
 }
