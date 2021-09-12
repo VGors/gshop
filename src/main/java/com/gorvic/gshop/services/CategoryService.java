@@ -12,4 +12,7 @@ public class CategoryService {
     public Category findById(Long id){
         return categoryRepository.findById(id).get();
     }
+    public Category findByTitle(String title){
+        return categoryRepository.getFirstByTitle(title);
+    }
 }

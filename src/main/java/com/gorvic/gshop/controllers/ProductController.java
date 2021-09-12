@@ -1,7 +1,9 @@
 package com.gorvic.gshop.controllers;
 
 import com.gorvic.gshop.dto.ProductDto;
+import com.gorvic.gshop.models.Category;
 import com.gorvic.gshop.models.Product;
+import com.gorvic.gshop.services.CategoryService;
 import com.gorvic.gshop.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/products")
 public class ProductController {
     private final ProductService productService;
+    private final CategoryService categoryService;
 
     @GetMapping("/{id}")
     public ProductDto findById(@PathVariable Long id) {
@@ -28,6 +31,8 @@ public class ProductController {
         Product product = new Product();
         product.setTitle(newProductDto.getTitle());
         product.setPrice(newProductDto.getPrice());
+        Category category = categoryService.findByTitle(newProductDto.getCategoryTitle());
+        product.setCategory(category);
         return new ProductDto(productService.save(product));
     }
 
