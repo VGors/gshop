@@ -21,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat = "p in products">
+        <tr ng-repeat = "p in productsPage.content">
             <td>{{p.id}}</td>
             <td>{{p.title}}</td>
             <td>{{p.price}}</td>
@@ -30,12 +30,13 @@
         </tbody>
     </table>
     <p></p>
-    <div align="center">
-        <button class="btn btn-primary btn-sm" ng-click = "loadPage(1)">1</button>
-        <button class="btn btn-primary btn-sm" ng-click = "loadPage(2)">2</button>
-        <button class="btn btn-primary btn-sm" ng-click = "loadPage(3)">...</button>
-        <button class="btn btn-primary btn-sm" ng-click = "loadPage(4)">4</button>
-    </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li ng-repeat="p in navList" class="page-item">
+                    <a class="page-link" ng-click = "loadPage(p)">{{p}}</a>
+                </li>
+            </ul>
+        </nav>
 </div>
 
 </body>
