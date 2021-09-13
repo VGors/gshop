@@ -53,6 +53,7 @@
         <thead>
         <tr>
             <td>Title</td>
+            <td>Quantity</td>
             <td>Price</td>
             <td></td>
         </tr>
@@ -60,7 +61,8 @@
         <tbody>
         <tr ng-repeat="oi in cart.items">
             <td>{{oi.productTitle}}</td>
-            <td>{{oi.price}}</td>
+            <td>{{oi.quantity}}</td>
+            <td>{{oi.quantity + ' x ' + oi.pricePerProduct + ' = ' + oi.price}}</td>
             <td>
                 <button class="btn btn-danger">Delete</button>
             </td>
