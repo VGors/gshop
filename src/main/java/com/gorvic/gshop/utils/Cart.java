@@ -26,17 +26,21 @@ public class Cart {
 
     public void clear() {
         items.clear();
-        recalculate();
+        price = BigDecimal.ZERO;
+    }
+
+    public boolean add(Long productId){
+        for (OrderItemDto o : items) {
+            if (o.getId().equals(productId)) {
+                o.changeQuantity(1);
+                recalculate();
+                return true;
+            }
+        }
+        return false;
     }
 
     public void add(Product product) {
-        for (OrderItemDto o : items) {
-            if (o.getId().equals(product.getId())) {
-                o.changeQuantity(1);
-                recalculate();
-                return;
-            }
-        }
         items.add(new OrderItemDto(product));
         recalculate();
     }

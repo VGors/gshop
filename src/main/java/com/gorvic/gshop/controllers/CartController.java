@@ -22,7 +22,8 @@ public class CartController {
 
     @GetMapping("/add/{id}")
     public void add(@PathVariable Long id) {
-        Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Unable to add product to cart - not found, id: " + id));
-        cart.add(p);
+        if(!cart.add(id)){
+            cart.add(productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Unable to add product to cart - not found, id: " + id)));
+        }
     }
 }
