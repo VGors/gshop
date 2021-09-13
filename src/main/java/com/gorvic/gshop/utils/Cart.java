@@ -1,6 +1,6 @@
 package com.gorvic.gshop.utils;
 
-import com.gorvic.gshop.dto.ProductDto;
+import com.gorvic.gshop.dto.OrderItemDto;
 import com.gorvic.gshop.models.Product;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,29 +15,36 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Cart {
-    private List<ProductDto> items;
+    private List<OrderItemDto> items;
     private BigDecimal price;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         this.items = new ArrayList<>();
         this.price = BigDecimal.ZERO;
     }
 
-    public void clear(){
+    public void clear() {
         items.clear();
         recalculate();
     }
 
-    public void add(Product product){
-        items.add(new ProductDto(product));
+    public void add(Product product) {
+        for (OrderItemDto o : items) {
+            if (o.getId().equals(product.getId())) {
+                o.changeQuantity(1);
+                recalculate();
+                return;
+            }
+        }
+        items.add(new OrderItemDto(product));
         recalculate();
     }
 
-    private void recalculate(){
+    private void recalculate() {
         price = BigDecimal.ZERO;
-        for (ProductDto p: items){
-            price = price.add(p.getPrice());
+        for (OrderItemDto orderItemDto : items) {
+            price = price.add(orderItemDto.getPrice());
         }
     }
 }
