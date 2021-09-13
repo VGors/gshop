@@ -15,11 +15,12 @@ create table products
 (
     id          bigserial primary key,
     title       varchar(255),
-    price       float,
+    price       numeric (8, 2) not null,
     category_id bigserial references categories (id),
     created_at  timestamp default current_timestamp,
     updated_at  timestamp default current_timestamp
 );
+
 insert into products (title, price, category_id)
 values ('Celery', 50.32, 1),
        ('Parsley', 30.11, 1),

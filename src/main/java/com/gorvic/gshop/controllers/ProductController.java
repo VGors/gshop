@@ -1,20 +1,13 @@
 package com.gorvic.gshop.controllers;
 
 import com.gorvic.gshop.dto.ProductDto;
-import com.gorvic.gshop.models.Category;
 import com.gorvic.gshop.models.Product;
 import com.gorvic.gshop.services.CategoryService;
 import com.gorvic.gshop.services.ProductService;
+import com.gorvic.gshop.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,14 +19,12 @@ public class ProductController {
 //            mapEntityToDto = p -> new ProductDto(p.getId(), p.getTitle(), p.getCategory().getTitle(), p.getPrice());
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
-        Optional<Product> p = productService.findById(id);
-        if (p.isPresent()) {
-            return new ResponseEntity<>(new ProductDto(p.get()), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ProductDto findById(@PathVariable Long id) {
+        Product p = productService.findById(id).orElseThrow(()-> new ResourceNotFoundException("Product not found: " + id));
+        return new ProductDto(p);
 //        return mapEntityToDto.apply(productService.findById(id));
     }
+
 
     @GetMapping
     public Page<ProductDto> findAll(@RequestParam(name = "p", defaultValue = "1") int pageIndex) {
