@@ -1,35 +1,43 @@
 package com.gorvic.gshop.controllers;
 
+import com.gorvic.gshop.dto.ProductDto;
+import com.gorvic.gshop.models.Category;
 import com.gorvic.gshop.models.Product;
+import com.gorvic.gshop.services.CategoryService;
 import com.gorvic.gshop.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/products")
 public class ProductController {
     private final ProductService productService;
+    private final CategoryService categoryService;
 
-    @GetMapping("/products/{id}")
-    public Product findById(@PathVariable Long id) {
-        return productService.findById(id);
+    @GetMapping("/{id}")
+    public ProductDto findById(@PathVariable Long id) {
+        return new ProductDto(productService.findById(id));
     }
 
-    @GetMapping("/delete_product/{id}")
+    @GetMapping
+    public Page<Product> findAll(@RequestParam(name = "p", defaultValue = "1") int pageIndex) {
+        return productService.findPage(pageIndex - 1, 7);
+    }
+
+    @PostMapping
+    public ProductDto createProduct(@RequestBody ProductDto newProductDto) {
+        Product product = new Product();
+        product.setTitle(newProductDto.getTitle());
+        product.setPrice(newProductDto.getPrice());
+        Category category = categoryService.findByTitle(newProductDto.getCategoryTitle());
+        product.setCategory(category);
+        return new ProductDto(productService.save(product));
+    }
+
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         productService.deleteById(id);
-    }
-
-    @GetMapping("/products")
-    public List<Product> findAll() {
-        return productService.findAll();
-    }
-
-    @GetMapping("/product_pages")
-    public Page<Product> findPage(@RequestParam(name = "p") int pageIndex) {
-        return productService.findPage(pageIndex - 1, 7);
     }
 }

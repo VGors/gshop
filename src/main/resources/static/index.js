@@ -1,31 +1,23 @@
 angular.module('app', []).controller('indexController', function ($scope, $http) {
-    $scope.loadProducts = function () {
-        $http({
-            url: "http://localhost:8189/gshop/products",
-            method: 'GET',
-            params: {}
-        }).then(function (response) {
-            console.log(response);
-            $scope.products = response.data;
-        });
-    };
+    const contextPath = 'http://localhost:8189/gshop'
 
     $scope.loadPage = function (pageIndex = 1) {
         $http({
-            url: "http://localhost:8189/gshop/product_pages",
+            url: contextPath + "/api/v1/products",
             method: 'GET',
             params: {
                 'p': pageIndex
             }
         }).then(function (response) {
+            $scope.productsPage = response.data;
+            $scope.navList = $scope.generatePagesIndex(1, $scope.productsPage.totalPages)
             console.log(response);
-            $scope.products = response.data.content;
         });
     };
 
     $scope.showProductInfo = function (productID) {
         $http({
-            url: "http://localhost:8189/gshop/products/" + productID,
+            url: contextPath + "/api/v1/products/" + productID,
             method: 'GET'
         }).then(function (response) {
             alert(response.data.title);
@@ -34,14 +26,20 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
 
     $scope.deleteProduct = function (productID) {
         $http({
-            url: "http://localhost:8189/gshop/delete_product/" + productID,
-            method: 'GET'
+            url: contextPath + "/api/v1/products/" + productID,
+            method: 'DELETE'
         }).then(function (response) {
-            // $scope.loadProducts();
             $scope.loadPage();
         });
     }
 
-    // $scope.loadProducts();
+    $scope.generatePagesIndex = function (startPage, endPage) {
+        let arr = [];
+        for (let i = startPage; i <endPage + 1; i++){
+            arr.push(i);
+        }
+        return arr;
+    }
+
     $scope.loadPage();
 });
